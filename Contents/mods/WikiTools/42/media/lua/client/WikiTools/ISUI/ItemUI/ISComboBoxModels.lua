@@ -3,6 +3,7 @@ require "ISUI/ISComboBox"
 ---@class ISComboBoxModels : ISComboBox
 ---@field listingType string
 ---@field listedItems table<string, {type: string, object: Item}|{type: string}>
+---@field noSelectionText string
 local ISComboBoxModels = ISComboBox:derive("ISComboBoxModels")
 
 
@@ -26,11 +27,11 @@ end
 
 
 ---Get the list of models available in the script manager.
----@return table
+---@return string[]
 function ISComboBoxModels:getModelList()
     -- parse model scripts
     local scripts = getScriptManager():getAllModelScripts()
-    local sorted = {}
+    local sorted = {} --[[@as string[] ]]
 	for i=0,scripts:size()-1 do repeat
         local script = scripts:get(i)
         local fullType = script:getFullType()
@@ -39,19 +40,20 @@ function ISComboBoxModels:getModelList()
         if fullType == "Base.FemaleBody" or fullType == "Base.MaleBody" then
             break
         end
-        table.insert(sorted, fullType)
+        sorted[#sorted + 1] = fullType
     until true end
     table.sort(sorted)
     return sorted
 end
 
+---@return string[]
 function ISComboBoxModels:getItemList()
     local items = getScriptManager():getAllItems()
-    local sorted = {}
+    local sorted = {} --[[@as string[] ]]
     for i=0,items:size()-1 do
         local item = items:get(i)
         local fullType = item:getModuleName() .. "." .. item:getName()
-        table.insert(sorted, fullType)
+        sorted[#sorted + 1] = fullType
     end
     table.sort(sorted)
     return sorted
@@ -78,6 +80,7 @@ end
 ---@return string|nil
 function ISComboBoxModels:getModel(fullType)
     local item = self.listedItems[fullType]
+    if not item then return end
     local type = item.type
 
     -- try to fetch the proper model based on the listing type
@@ -85,7 +88,8 @@ function ISComboBoxModels:getModel(fullType)
     if type == "modelScript" then
         model = fullType -- the full type itself is the model script
     elseif type == "itemScript" then
-        model = self:getItemModel(item.object)
+        local object = item.object --[[@as Item]] 
+        model = self:getItemModel(object)
     end
 
     return model
@@ -101,6 +105,7 @@ end
 
 function ISComboBoxModels:populateList()
     local listingType = self.listingType
+    print(listingType)
     if listingType == "All models" then
         local sorted = self:getModelList()
 
@@ -132,8 +137,12 @@ function ISComboBoxModels:populateList()
 end
 
 ---Needed for typings to not go insane.
+---@param ... any
+---@return ISComboBoxModels
 function ISComboBoxModels:new(...)
     local o = ISComboBox.new(self, ...) --[[@as ISComboBoxModels]]
+    o.listingType = "All items"
+    o:populateList()
     return o
 end
 

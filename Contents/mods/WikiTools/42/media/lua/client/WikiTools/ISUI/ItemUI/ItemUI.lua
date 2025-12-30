@@ -10,6 +10,9 @@ local module = require "WikiTools/module"
 
 ---@class ItemUI : ISPanel
 ---@field scene Wiki3DScene
+---@field comboAddModel ISComboBoxModels
+---@field filenamePattern string
+---@field colorSelector ColorSelector
 local ItemUI = ISPanel:derive("ItemUI")
 
 ---CACHE
@@ -186,7 +189,7 @@ function ItemUI:setupDefaultValues()
     self.comboAddModel:updateListing(self.listingType)
 
     -- last opened model
-    modData.lastOpenedModel = modData.lastOpenedModel or "Base.FireAxe"
+    modData.lastOpenedModel = modData.lastOpenedModel or "Base.Axe"
     self.comboAddModel:select(modData.lastOpenedModel)
     if self.comboAddModelLabel then
         self.comboAddModelLabel:setName(modData.lastOpenedModel)
@@ -245,7 +248,7 @@ function ItemUI:create()
     local comboType_x, comboType_y = log_x + log_w + BORDER_X, log_y
     local comboType_w, comboType_h = 200, BUTTON_HEIGHT
     local comboType = ISComboBox:new(comboType_x, comboType_y, comboType_w, comboType_h, self, self.onComboChangeType)
-    comboType.noSelectionText = "Select model listing method"
+    -- comboType.noSelectionText = "Select model listing method"
     comboType:setEditable(true)
     self:addChild(comboType)
     self.comboType = comboType

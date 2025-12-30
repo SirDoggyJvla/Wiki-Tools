@@ -5,8 +5,8 @@ local NumberSlider = require "WikiTools/ISUI/NumberSlider"
 ---@class ColorSelector : ISPanel
 ---@field color table<string, number>
 ---@field font UIFont
----@field sliderCounts integer
----@field sliders_space integer
+---@field sliderCounts number
+---@field sliders_space number
 ---@field slider_height number
 ---@field redSlider NumberSlider
 ---@field greenSlider NumberSlider
@@ -65,6 +65,7 @@ function ColorSelector:create()
     local sliderHeight = self.slider_height - 1
 
     -- red slider
+    ---@type number, number
     local x, y = self.width/3, 2
     local redSlider = NumberSlider:new(x, y, sliderWidth, sliderHeight, self.color.r)
     redSlider:initialise()

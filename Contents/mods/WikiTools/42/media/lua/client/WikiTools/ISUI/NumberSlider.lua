@@ -3,10 +3,10 @@ require "ISUI/ISPanel"
 
 ---@class NumberSlider : ISPanel
 ---@field defaultValue number
----@field min number|nil
----@field max number|nil
----@field step number|nil
----@field shift number|nil
+---@field min number
+---@field max number
+---@field step number
+---@field shift number
 local NumberSlider = ISPanel:derive("NumberSlider")
 
 function NumberSlider:initialise()
@@ -48,7 +48,7 @@ function NumberSlider:create()
 
     -- value box
     local valueBox = ISTextEntryBox:new(tostring(self.defaultValue), self.width - boxWidth, 0, boxWidth, self.height)
-    valueBox.onTextChangeFunction = self.onValueChange_valueBox
+    valueBox.onTextChangeFunction = self.onValueChange_valueBox ---@diagnostic disable-line
     valueBox.target = self
     valueBox:initialise()
     self:addChild(valueBox)

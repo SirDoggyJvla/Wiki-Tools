@@ -125,7 +125,7 @@ function Wiki3DScene:setupScene()
     self:fromLua0("clearAxes")
 end
 
-
+---@return Wiki3DScene
 function Wiki3DScene:new(x, y, width, height)
 	local o = ISUI3DScene.new(self, x, y, width, height) --[[@as Wiki3DScene]]
 	o.background = true

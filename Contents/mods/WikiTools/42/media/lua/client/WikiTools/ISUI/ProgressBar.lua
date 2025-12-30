@@ -46,6 +46,7 @@ end
 --     -- body
 -- end
 
+---@return ProgressBar
 function ProgressBar:new(x, y, width, height, maxValue)
     local o = {}
     o = ISPanel:new(x, y, width, height) --[[@as ProgressBar]]

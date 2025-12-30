@@ -16,18 +16,21 @@ local BORDER_X, BORDER_Y = 25, 25
 ---@field filenamePattern string
 ---@field screenshotDelay number
 ---@field lastScreenshotTime number
----@field outfits table<number, table<string, string>>
+---@field outfits table<number, {outfit:string, gender:string}>
 ---@field model_x integer
 ---@field model_y integer
 ---@field model_w integer
 ---@field model_h integer
----@field renderOutfits table<number, table<string, string>>
+---@field renderOutfits table<number, {outfit:string, gender:string}>
 ---@field iteration integer
 ---@field maxIterations integer
 ---@field model3D CharacterOutfit3D
 ---@field closeButton ISButton
 ---@field logPanel ISRichTextPanel
 ---@field parse_outfits ISButton
+---@field colorSelector ColorSelector
+---@field progressBar ProgressBar
+---@field deltaSelector NumberSlider
 local CharacterOutfitUI = ISPanel:derive("CharacterOutfitUI")
 
 
