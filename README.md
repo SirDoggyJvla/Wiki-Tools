@@ -1,6 +1,9 @@
 # Wiki Tools
 A set of in-game tools for the PZwiki to do different actions.
 
+Here's a video showcasing the tools:
+https://youtu.be/-k_Vd3CBfjU
+
 ## Outfit Parser
 Outfit Parser is a tool to parse every available outfits in the game and render them.
 
